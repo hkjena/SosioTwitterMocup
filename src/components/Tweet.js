@@ -35,7 +35,12 @@ const Tweet = ({ avatar, tweet }) => {
     <>
       <List className={classes.root}>
         <Paper className={classes.media} elevation={5}>
-          <img className={classes.profile} src={avatar} alt="user" />
+          <img
+            className={classes.profile}
+            src={avatar}
+            alt="user"
+            loading="lazy"
+          />
         </Paper>
 
         <ListItemText className={classes.tweet} secondary={tweet} />

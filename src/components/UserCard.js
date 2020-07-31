@@ -3,7 +3,7 @@ import Button from "./Button";
 import { Box } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 
-const UserCard = () => (
+const UserCard = ({ setOpen }) => (
   <>
     <Box
       display="flex"
@@ -17,7 +17,9 @@ const UserCard = () => (
         </Typography>
         <Typography variant="subtitle2">Here you can see user bio</Typography>
       </Box>
-      <Button alignself="center">Create New Tweet</Button>
+      <Button alignself="center" onClick={() => setOpen(true)}>
+        Create New Tweet
+      </Button>
     </Box>
   </>
 );

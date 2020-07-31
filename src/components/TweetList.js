@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Container from "@material-ui/core/Container";
-import axios from "axios";
+import { connect } from "react-redux";
 
 import Tweet from "./Tweet";
+import { getTweets } from "../actions/index";
 
-const TweetList = () => {
-  const [posts, setPosts] = useState([]);
-
+const TweetList = ({ tweets, getTweets }) => {
   useEffect(() => {
-    const getPosts = async () => {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts?limit=10"
-      );
-      const data = response.data.slice(0, 10);
-      setPosts(data);
-    };
-    getPosts();
-  }, []);
+    getTweets();
+  }, [getTweets]);
 
   return (
     <Container display="flex" maxWidth="sm">
-      {posts.map(({ title, body }, i) => (
-        <Tweet
-          key={title}
-          avatar={`https://picsum.photos/id/10${18 + i}/100`}
-          tweet={body}
-        />
-      ))}
+      {tweets &&
+        tweets.map(({ body }, i) => (
+          <Tweet
+            key={body}
+            avatar={`https://picsum.photos/id/${Math.floor(
+              100 + (200 - 100) * Math.random()
+            )}/100`}
+            tweet={body}
+          />
+        ))}
     </Container>
   );
 };
 
-export default TweetList;
+const mapStateToProps = state => state;
+
+export default connect(
+  mapStateToProps,
+  { getTweets }
+)(TweetList);

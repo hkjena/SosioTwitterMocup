@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@material-ui/core/styles/styled";
-import Button from "@material-ui/core/Button";
+import { Button } from "@material-ui/core";
 
 const MyButton = styled(({ color, ...other }) => <Button {...other} />)({
   background: props =>

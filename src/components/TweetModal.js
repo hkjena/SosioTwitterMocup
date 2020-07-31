@@ -42,9 +42,17 @@ const TweetModal = ({ open, setOpen, addTweet }) => {
   const classes = useStyles();
   const [tweet, setTweet] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const handelChange = e => {
+    e.target.value.trim() === "" ? setError(true) : setError(false);
+    setTweet(e.target.value);
+  };
+
   const formSubmit = async e => {
-    setLoading(true);
     e.preventDefault();
+    if (tweet.trim() === "") return;
+    setLoading(true);
     await addTweet(tweet);
     setLoading(false);
     setTweet("");
@@ -56,14 +64,20 @@ const TweetModal = ({ open, setOpen, addTweet }) => {
       <Dialog
         maxWidth={"xs"}
         fullWidth
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          setOpen(false);
+          setError(false);
+        }}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
         <IconButton
           aria-label="close"
           className={classes.closeButton}
-          onClick={() => setOpen(false)}
+          onClick={() => {
+            setOpen(false);
+            setError(false);
+          }}
         >
           <CloseIcon />
         </IconButton>
@@ -71,14 +85,16 @@ const TweetModal = ({ open, setOpen, addTweet }) => {
           <form onSubmit={formSubmit}>
             <div className={classes.form}>
               <TextField
+                error={error}
                 id="outlined-name"
                 label="Enter Tweet"
                 className={classes.text}
                 value={tweet}
-                onChange={e => setTweet(e.target.value)}
+                onInput={e => handelChange(e)}
                 variant="outlined"
                 rows={3}
                 multiline
+                helperText={error && "Incorrect entry."}
                 required
               />
               <Button className={classes.btn} type="submit" color="red">

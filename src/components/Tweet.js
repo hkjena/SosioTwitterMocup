@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "6px"
   },
   tweet: {
+    textAlign: "justify",
     minWidth: "255px",
     maxWidth: "350px"
   }

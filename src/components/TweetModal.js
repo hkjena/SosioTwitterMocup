@@ -28,7 +28,8 @@ const useStyles = makeStyles(theme => ({
   },
   btn: {
     marginTop: "20px",
-    width: "40%"
+    width: "40%",
+    textAlign: "center"
   },
   text: {
     width: "100%"
@@ -64,10 +65,6 @@ const TweetModal = ({ open, setOpen, addTweet }) => {
       <Dialog
         maxWidth={"xs"}
         fullWidth
-        onClose={() => {
-          setOpen(false);
-          setError(false);
-        }}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
@@ -98,13 +95,16 @@ const TweetModal = ({ open, setOpen, addTweet }) => {
                 required
               />
               <Button className={classes.btn} type="submit" color="red">
-                Submit{" "}
-                {loading && (
-                  <CircularProgress
-                    color="inherit"
-                    className={classes.spinner}
-                    size="20px"
-                  />
+                {loading ? (
+                  <>
+                    <CircularProgress
+                      color="inherit"
+                      className={classes.spinner}
+                      size="20px"
+                    />
+                  </>
+                ) : (
+                  "Submit"
                 )}
               </Button>
             </div>
